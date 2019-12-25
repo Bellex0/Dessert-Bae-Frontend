@@ -30,6 +30,56 @@
     margin-top: 30px;
     padding: 5px;
   }
+
+  #review-button{
+    background-color: peachpuff;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+
+  }
+
+  #edit-form{
+    margin-top: 10px
+  }
+
+  #post-button{
+    background-color: peachpuff;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  #reviews {
+    list-style-type: none 
+    }
+
+  #review-item::before {
+      content: '\1F36D';
+      margin-left: -3px;
+      margin-right: 3px;
+  }
+
+  #update{
+    background-color: #c5dff5;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  #delete{
+    background-color: #c5dff5;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  #update-button{
+    background-color:#c5dff5;
+    text-align: center;
+    padding: 4px;
+    border-radius: 10px;
+  }
  
 
 

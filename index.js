@@ -1,5 +1,9 @@
 const dessertsDiv = document.getElementById("desserts")
 
+function gobottom ()
+{ document.getElementById("show").scrollIntoView()
+}
+
 fetch("http://localhost:3000/desserts")
 .then(res => res.json())
 .then(desserts => {
@@ -8,7 +12,7 @@ fetch("http://localhost:3000/desserts")
         <div class="w3-quarter" style="height: 400px">
           <img src="${dessert.image}" width="200" height="200">
           <h3 width="10" height="10">${dessert.name}</h3>
-          <button data-id=${dessert.id} id="review-button">See Reviews 😋</button>
+          <button onclick="gobottom()" data-id=${dessert.id} id="review-button">See Reviews 😋</button>
         </div>`
         
     });
@@ -31,10 +35,10 @@ dessertsDiv.addEventListener("click", evt => {
       <li>Price: ${dessert.price}</li>
     </ul>
      <h2> Customer Reviews 📝 </h2>
-    <p> <ul id="reviews">
+    
     `
     dessert.reviews.forEach(review => {
-      showDiv.innerHTML += `<li data-id="${dessert.id}" data-id="${review.id}"> ${review.content} - <i>${review.name}, ${review.location} </i></li>`
+      showDiv.innerHTML += `<ul id="reviews"> <li id="review-item" data-id="${dessert.id}" data-id="${review.id}"> ${review.content} - <i>${review.name}, ${review.location} </i></li>`
     })
     
     showDiv.innerHTML += `
@@ -44,7 +48,7 @@ dessertsDiv.addEventListener("click", evt => {
     <div class="container" id="form-container">
       <form data-id="${dessert.id}" id="new-review"><h3>Tell us how you feel! 💭 </h3>
           <div class="form-group">
-            <textarea class="form-control" name="review" id="review-content" rows="3"></textarea>
+            <textarea class="form-control" name="review" id="review-content" rows="3" cols="50"></textarea>
           <div class="form-group">
             <label for="name">Name 📛</label>
             <input type="text" class="form-control" name="name">
@@ -88,8 +92,8 @@ dessertsDiv.addEventListener("click", evt => {
                     alert("Fields cannot be blank")
                   } else {
                     let reviewPlace = document.getElementById("reviews")
-                    reviewPlace.innerHTML +=`<li data-id="${dessert.id}" data-id="${review.id}"> ${review.content} - <i>${review.name}, ${review.location} </i></li>
-                     <button data-id="${review.id}" id="update">Edit my review</button> <button data-id="${review.id}" id="delete">Delete</button>` 
+                    reviewPlace.innerHTML +=`<li id="review-item" data-id="${dessert.id}" data-id="${review.id}"> ${review.content} - <i>${review.name}, ${review.location} </i></li>
+                     <button data-id="${review.id}" id="update">Edit my review 🖊</button> <button data-id="${review.id}" id="delete">Delete 🚫</button>` 
 
 
                       // Update Review-Make Edit form
@@ -101,6 +105,8 @@ dessertsDiv.addEventListener("click", evt => {
                            method: "DELETE"
                          })
                         evt.target.previousElementSibling.previousElementSibling.remove()
+                        evt.target.previousElementSibling.remove()
+                        evt.target.remove()       
                        }
           
                   if (evt.target.id === "update") {
@@ -110,14 +116,13 @@ dessertsDiv.addEventListener("click", evt => {
                     <input name="review" value="${review.content}" />
                     <input name="name" value="${review.name}" />
                     <input name="location" value="${review.location}" />
-                    <input type="submit" value="Update my review">`
+                    <input id="update-button" type="submit" value="Update my review ⚡️">`
                   
                     editForm.addEventListener("submit", evt => {
                       evt.preventDefault()
                       updatedReview = evt.target.review.value
                       updatedName = evt.target.name.value
                       updatedLocation = evt.target.location.value
-                    
 
                       fetch(`http://localhost:3000/reviews/${review.id}`, {
                       method: 'PATCH', 
@@ -133,7 +138,7 @@ dessertsDiv.addEventListener("click", evt => {
                   .then(res => res.json())
                   .then(updatedReview => {
                     let oldReview = editForm.previousElementSibling.previousElementSibling.previousElementSibling
-                    oldReview.innerText = `${updatedReview.content} - ${updatedReview.name}, ${updatedReview.location}`   
+                    oldReview.innerText = `${updatedReview.content} - ${updatedReview.name}, ${updatedReview.location}`  
                   })
                     })
                     reviewPlace.append(editForm)
