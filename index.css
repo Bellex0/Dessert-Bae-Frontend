@@ -18,6 +18,10 @@
     background: url("https://www.achildsplacepa.org/wp-content/uploads/2018/11/GettyImages-944846292.jpg")
   }
 
+  button {
+    cursor: url(./ice-cream.png), auto;
+  }
+
   #desserts
   {
     display: flex; 
