@@ -4,7 +4,7 @@ function gobottom ()
 { document.getElementById("show").scrollIntoView()
 }
 
-fetch("http://localhost:3000/desserts")
+fetch("https://dessert-bae-api.herokuapp.com/desserts")
 .then(res => res.json())
 .then(desserts => {
     desserts.forEach(dessert => {
@@ -24,7 +24,7 @@ let showDiv = document.getElementById("show")
 dessertsDiv.addEventListener("click", evt => {
   if (evt.target.id === "review-button") {
   let id = evt.target.dataset.id
-  fetch(`http://localhost:3000/desserts/${id}`)
+  fetch(`https://dessert-bae-api.herokuapp.com/desserts/${id}`)
   .then(res => res.json())
   .then(dessert => {
     showDiv.innerHTML = 
@@ -75,7 +75,7 @@ dessertsDiv.addEventListener("click", evt => {
                 let newLocation = evt.target.location.value
                 reviewForm.reset()
 
-                fetch(`http://localhost:3000/reviews`, {
+                fetch(`https://dessert-bae-api.herokuapp.com/reviews`, {
                   method: 'POST', 
                   headers: {"Content-type": "application/json",
                   "Accept": "application/json"},
@@ -101,7 +101,7 @@ dessertsDiv.addEventListener("click", evt => {
     
                  reviewPlace.addEventListener("click", evt => {
                   if (evt.target.id === "delete"){
-                         fetch(`http://localhost:3000/reviews/${review.id}`,{
+                         fetch(`https://dessert-bae-api.herokuapp.com/reviews/${review.id}`,{
                            method: "DELETE"
                          })
                         evt.target.previousElementSibling.previousElementSibling.remove()
@@ -124,7 +124,7 @@ dessertsDiv.addEventListener("click", evt => {
                       updatedName = evt.target.name.value
                       updatedLocation = evt.target.location.value
 
-                      fetch(`http://localhost:3000/reviews/${review.id}`, {
+                      fetch(`https://dessert-bae-api.herokuapp.com/reviews/${review.id}`, {
                       method: 'PATCH', 
                   headers: {"Content-type": "application/json",
                   "Accept": "application/json"},
